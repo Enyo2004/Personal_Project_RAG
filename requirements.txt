@@ -1,0 +1,7 @@
+openai 
+python-dotenv 
+langchain_weaviate 
+langchain_community 
+langchain_core 
+langchain_openai 
+pymongo 

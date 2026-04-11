@@ -1,0 +1,10 @@
+## FILES TO IGNORE ##  
+notebooks
+
+.python-version
+
+pyproject.toml
+
+uv.lock 
+
+main.py
