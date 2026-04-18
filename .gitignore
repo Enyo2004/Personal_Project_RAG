@@ -8,3 +8,11 @@ pyproject.toml
 uv.lock 
 
 main.py
+
+RAG_DOCS
+RAG_MD 
+RAG_TXT
+
+### IGNORE THE SECRET FILE ###
+.env
+
