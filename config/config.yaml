@@ -6,23 +6,18 @@ artifact_dir: artifacts
 ## DATA INGESTION ## 
 data_ingestion: 
   root_dir: RAG_TXT # where to get the ingestion (can use s3 bucket or blob storage later)
+  path_name: "*/*.txt"
   artifact_path: artifacts/data_ingestion
 
-## DATA VALIDATION 
-data_validation: 
-  root_dir: 
-  artifact_path: artifacts/data_validation
-  status_file: artifacts/data_validation/status.txt
-  artifact_name: RAG_MD
 
 ## DATA TRANSFORMATION ## 
 data_transformation: 
-  root_dir: 
+  source: artifacts/data_ingestion/RAG_TXT
+  root_dir: RAG_MD
   artifact_path: artifacts/data_transformation
   llm: 
     hugging_face: 
       gemma4: google/gemma-4-31B-it:together # using together.ai
-
 
 ## VECTOR DATABASE  
 vector_db: 
