@@ -1,0 +1,43 @@
+### THE CONFIGURATION FOR EACH PHASE 
+
+artifact_dir: artifacts 
+
+
+## DATA INGESTION ## 
+data_ingestion: 
+  root_dir: RAG_TXT # where to get the ingestion (can use s3 bucket or blob storage later)
+  artifact_path: artifacts/data_ingestion
+
+## DATA VALIDATION 
+data_validation: 
+  root_dir: 
+  artifact_path: artifacts/data_validation
+  status_file: artifacts/data_validation/status.txt
+  artifact_name: RAG_MD
+
+## DATA TRANSFORMATION ## 
+data_transformation: 
+  root_dir: 
+  artifact_path: artifacts/data_transformation
+  llm: 
+    hugging_face: 
+      gemma4: google/gemma-4-31B-it:together # using together.ai
+
+
+## VECTOR DATABASE  
+vector_db: 
+  embedding_name: BAAI/bge-small-en-v1.5
+  weaviate: 
+    default_cluster_url: LangChain_b0f01492851f4cc2a2bdb2736de1c582 #NOTE: THIS IS TEMPORARY CLUSTER
+
+
+## LLM (LARGE LANGUAGE MODELS) TO USE
+llm: 
+  groq: 
+    oss120b: openai/gpt-oss-120b
+    llama3_3: llama-3.3-70b-versatile
+  gemini: 
+      gemini3_1: gemini-3.1-flash-lite-preview
+
+
+

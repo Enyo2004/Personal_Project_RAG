@@ -35,12 +35,6 @@ list_files = [
 
     ## main folder ## 
     "app.py",
-
-    ## logs 
-    "logs/",
-
-    ## artifacts 
-    "artifacts/",
 ]
 
 
