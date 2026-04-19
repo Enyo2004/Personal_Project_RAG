@@ -1,6 +1,3 @@
-# test the logger 
-from src.utils.logger_artifact import logger
+from src.utils.utils import create_directories
 
-logger.info("hello logger")
-
-
+create_directories(['artifact', 'artifact/data_ingestion'])
