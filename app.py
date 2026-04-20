@@ -6,16 +6,26 @@ from src.pipeline.data_ingestion_pipeline import DataIngestionPipeline
 """Data Transformation"""
 from src.pipeline.data_transformation_pipeline import DataTransformationPipeline
 
-try: 
+"""Vector DB"""
+from src.pipeline.vector_db_pipeline import VectorDBPipeline
 
+try: 
+    '''Data Ingestion'''
     data_ingestion_pipeline = DataIngestionPipeline()
 
     data_ingestion_pipeline.initiate_data_ingestion()
     
+    '''Data transformation'''
     data_transformation_pipeline = DataTransformationPipeline()
 
     data_transformation_pipeline.initiate_data_transformation()
     
-    
+    '''Vector DB'''
+    vector_db_pipeline = VectorDBPipeline()
+
+    response = vector_db_pipeline.initiate_vector_db("Explicar el Protocolo de oscilacion de campo")
+
+    print(response)
+
 except Exception as e: 
     raise e 

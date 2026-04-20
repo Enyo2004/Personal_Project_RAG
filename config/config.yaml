@@ -25,7 +25,7 @@ vector_db:
   embedding_name: BAAI/bge-small-en-v1.5
   default_cluster_url: '1pqq36vrtl2hubhw7icxlw.c0.us-west3.gcp.weaviate.cloud' #NOTE: THIS IS TEMPORARY CLUSTER
   llm: llama3.1-8b #gemini-3.1-flash-lite-preview
-
+  artifact_path: artifacts/vector_db/response/response.txt
 
 ## LLM (LARGE LANGUAGE MODELS) TO USE
 llm: 

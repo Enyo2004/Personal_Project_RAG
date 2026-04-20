@@ -23,4 +23,31 @@ class DataTransformationConfig:
     llm: str
 
     
+'''Vector DB Entity'''
+@dataclass 
+class VectorDBConfig: 
+    source: Path
+    path_name: Path 
+    
+    embedding_name: str 
+    default_cluster_url: str
+    llm: str
+    artifact_path: Path 
+
+    ## params ## 
+    # recursive text splitter 
+    chunk_size: int 
+    chunk_overlap: int 
+
+    # bm25 retriever 
+    k: int
+
+    # reranker 
+    top_n: int
+    
+    # Ensemble retriever 
+    weights: List[float]
+
+    
+
 

@@ -1,10 +1,13 @@
 ## CONFIGURATION MANAGER ## 
 import os 
+from pathlib import Path 
+
 from src.utils.utils import read_yaml, create_directories
 
 # DATA INGESTION 
 from src.entity.entity import (DataIngestionConfig,
-                               DataTransformationConfig)
+                               DataTransformationConfig,
+                               VectorDBConfig)
 
 # import the constants from configuration
 from src.config import *
@@ -52,4 +55,48 @@ class ConfigurationManager:
         )
 
         return data_transformation_config
+    
 
+    """Vector DB Config"""
+
+    def get_vector_db_config(self) -> VectorDBConfig:
+        
+        # config keys
+        config = self.config.vector_db
+        
+        create_directories([Path(config.artifact_path).parent])
+        
+        # params keys 
+        splitter = self.params.CharacterSplitter
+
+        bmRetriever = self.params.bm25
+
+        reranker = self.params.reranker
+
+        hybrid_retriever = self.params.hybrid_retriever
+
+        # get the config 
+        vector_db_config = VectorDBConfig(
+            source=config.source,
+            path_name=config.path_name,
+            
+            embedding_name=config.embedding_name,
+            default_cluster_url=config.default_cluster_url,
+            llm=config.llm,
+            artifact_path=config.artifact_path, 
+
+            # splitter 
+            chunk_size=splitter.chunk_size,
+            chunk_overlap=splitter.chunk_overlap,
+
+            # bm25 retriever 
+            k=bmRetriever.k, 
+
+            # reranker 
+            top_n=reranker.top_n,
+
+            # hybrid_retriever 
+            weights=hybrid_retriever.weights,
+        )
+
+        return vector_db_config
