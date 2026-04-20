@@ -9,7 +9,7 @@ class DataIngestionPipeline:
     def __init__(self):
         pass
 
-    def start_data_ingestion(self):
+    def initiate_data_ingestion(self):
         try: 
             # provide the pipeline 
             logger.info("Starting Data Ingestion")
@@ -20,7 +20,7 @@ class DataIngestionPipeline:
 
             data_ingestion = DataIngestion(data_ingestion_config)
 
-            files = data_ingestion.initiate_data_ingestion()
+            files = data_ingestion.start_data_ingestion()
             
             logger.info("Data Ingestion finished: Files loaded correctly")
 

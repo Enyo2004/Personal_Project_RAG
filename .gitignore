@@ -1,6 +1,10 @@
 ## FILES TO IGNORE ##  
 notebooks
 
+logs
+
+artifacts
+
 .python-version
 
 __pycache__ 
@@ -17,10 +21,3 @@ RAG_TXT
 
 ### IGNORE THE SECRET FILE ###
 .env
-
-logs
-
-artifacts
-
-
-notebooks/6_dataTransformation.ipynb

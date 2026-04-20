@@ -1,1 +1,16 @@
-hello: world
+CharacterSplitter: 
+  chunk_size: 1000
+  chunk_overlap: 150
+
+
+bm25: 
+  k: 20
+
+
+reranker: 
+  top_n: 10
+
+
+hybrid_retriever:
+  weights: [0.7, 0.3]
+

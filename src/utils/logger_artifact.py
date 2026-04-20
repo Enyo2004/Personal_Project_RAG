@@ -15,7 +15,7 @@ os.makedirs(LOG_FILE, exist_ok=True)
 LOG_FORMAT = "[Created at: %(asctime)s - Module: %(module)s - Importance: %(levelname)s - Name: %(name)s - Message: %(message)s]"
 
 # provide the full path name 
-LOG_PATH = Path(os.path.join(LOG_FILE, f"log_{datetime.now(UTC)}"))
+LOG_PATH = Path(os.path.join(LOG_FILE, f"log_{datetime.now(UTC)}.log"))
 
 
 # instantiate the basic config with logging

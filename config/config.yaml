@@ -13,17 +13,18 @@ data_ingestion:
 ## DATA TRANSFORMATION ## 
 data_transformation: 
   source: artifacts/data_ingestion/RAG_TXT
-  root_dir: RAG_MD
+  root_dir: MD_TRANSFORMED
+  path_name: "*/*.md"
   artifact_path: artifacts/data_transformation
-  llm: 
-    hugging_face: 
-      gemma4: google/gemma-4-31B-it:together # using together.ai
+  llm: llama3.1-8b #google/gemma-4-31B-it:novita # using together.ai
 
 ## VECTOR DATABASE  
 vector_db: 
+  source: artifacts/data_transformation/MD_TRANSFORMED 
+  path_name: "*/*.md"
   embedding_name: BAAI/bge-small-en-v1.5
-  weaviate: 
-    default_cluster_url: LangChain_b0f01492851f4cc2a2bdb2736de1c582 #NOTE: THIS IS TEMPORARY CLUSTER
+  default_cluster_url: '1pqq36vrtl2hubhw7icxlw.c0.us-west3.gcp.weaviate.cloud' #NOTE: THIS IS TEMPORARY CLUSTER
+  llm: llama3.1-8b #gemini-3.1-flash-lite-preview
 
 
 ## LLM (LARGE LANGUAGE MODELS) TO USE

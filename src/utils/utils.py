@@ -38,7 +38,11 @@ def read_yaml(filepath:str) -> ConfigBox:
 def create_directories(directories:list[Path]): 
     '''Directories'''
     for file in directories:
-        logger.info(f"Creating directory {file}")
-        os.makedirs(file, exist_ok=True)
-        logger.info(f"Directory {file} created")
+        if Path(file).exists():
+            logger.info(f"Directory {file} already exists")
+
+        else:
+            logger.info(f"Creating directory {file}")
+            os.makedirs(file, exist_ok=True)
+            logger.info(f"Directory {file} created")
 

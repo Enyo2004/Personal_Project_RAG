@@ -15,7 +15,7 @@ class DataIngestion:
         
         self.config= config
         
-    def initiate_data_ingestion(self) -> List[AnyStr]:
+    def start_data_ingestion(self) -> List[AnyStr]:
         # provide the istructions to read the files 
 
         ## Load the files 
