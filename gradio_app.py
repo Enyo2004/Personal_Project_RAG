@@ -59,8 +59,29 @@ if __name__ == "__main__":
     inbrowser=True,
     css="footer {display: none !important}",
     footer_links=None,
-    server_port=7100,
-    theme=gr.themes.Neon(),
+
+    theme=gr.themes.Neon(
+    primary_hue="violet",  # The "Mystical" purple
+    neutral_hue="slate",   # Deep grayish-black for the background
+    font=["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+).set(
+    # Backgrounds - Dark Obsidian/Black
+    body_background_fill="*neutral_950",
+    block_background_fill="*neutral_900",
+    
+    # Borders and Accents - Neon Purple/Cyan
+    block_border_width="1px",
+    border_color_primary="*primary_500",
+    
+    # Text colors
+    body_text_color="*neutral_50",
+    block_label_text_color="*primary_300",
+    
+    # Input fields
+    input_background_fill="*neutral_800",
+    button_primary_background_fill="linear-gradient(90deg, #4c1d95, #7c3aed)", # Purple gradient
+    button_primary_text_color="white",
+)
 )
     
 
