@@ -7,7 +7,8 @@ from src.utils.utils import read_yaml, create_directories
 # DATA INGESTION 
 from src.entity.entity import (DataIngestionConfig,
                                DataTransformationConfig,
-                               VectorDBConfig)
+                               VectorDBConfig,
+                               ResponseLLMConfig)
 
 # import the constants from configuration
 from src.config import *
@@ -97,3 +98,17 @@ class ConfigurationManager:
         )
 
         return vector_db_config
+
+    """Response LLM config"""
+    def get_llm_response_config(self,) -> ResponseLLMConfig:
+        
+        config = self.config.response_llm
+
+        create_directories([Path(config.artifact_path).parent])
+
+        llm_response_config = ResponseLLMConfig(
+            llm=config.llm,
+            artifact_path=config.artifact_path
+        )
+
+        return llm_response_config

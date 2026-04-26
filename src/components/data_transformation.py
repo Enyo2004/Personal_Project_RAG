@@ -18,6 +18,8 @@ from src.utils.logger_artifact import logger
 # import the config entity 
 from src.entity.entity import DataTransformationConfig
 
+from typing import List
+
 """Data Transformation Component"""
 class DataTransformation: 
     def __init__(self,
@@ -171,10 +173,9 @@ class DataTransformation:
                     logger.info(f"Successfully overwriten file: {full_path.name}")
             
 
-
-    def start_data_transformation(self):
+    def start_data_transformation(self) -> List[Path]:
         """Write in all the files """
-        
+
         for file in self.files: 
             """MD files"""
             # convert into md files path 
@@ -188,6 +189,7 @@ class DataTransformation:
 
             # if the path has text in it do not rewrite anything 
             if check_file == "":
+
                 logger.info(f"{os.path.join(full_path)} is empty")
 
                 """TXT FILES"""

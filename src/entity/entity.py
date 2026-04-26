@@ -47,4 +47,8 @@ class VectorDBConfig:
     weights: List[float]
 
     
-
+"""Response LLM entity"""
+@dataclass 
+class ResponseLLMConfig:
+    llm: str
+    artifact_path: Path

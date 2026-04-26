@@ -27,7 +27,7 @@ vector_db:
 
 response_llm: 
   llm: llama3.1-8b #gemini-3.1-flash-lite-preview
-  artifact_path: artifacts/vector_db/response/response.txt
+  artifact_path: artifacts/llm_response/response.txt
   
 ## LLM (LARGE LANGUAGE MODELS) TO USE
 llm: 

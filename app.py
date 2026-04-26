@@ -9,6 +9,9 @@ from src.pipeline.data_transformation_pipeline import DataTransformationPipeline
 """Vector DB"""
 from src.pipeline.vector_db_pipeline import VectorDBPipeline
 
+"""Response LLM"""
+from src.pipeline.response_llm_pipeline import ResponseLLMPipeline
+
 try: 
     '''Data Ingestion'''
     data_ingestion_pipeline = DataIngestionPipeline()
@@ -25,7 +28,15 @@ try:
 
     weaviate_client, retriever = vector_db_pipeline.initiate_vector_db()
 
-    print(weaviate_client, retriever)
 
+    '''Response LLM'''
+    response_llm_pipeline = ResponseLLMPipeline(
+        vector_db=weaviate_client,
+        retriever=retriever
+    )
+
+    llm_response = response_llm_pipeline.initiate_llm_response(query="Cubo de Metatron")
+    
+    print(llm_response)
 except Exception as e: 
     raise e 

@@ -163,6 +163,7 @@ class VectorDB:
 
 
     
+    
     def start_vector_db(self, ) -> WeaviateVectorStore:
         ## instructions to start the vector DB ##
 
@@ -205,6 +206,9 @@ class VectorDB:
         retriever = self.hybrid_retriever(vectorStore=weaviate_vectordb,
                                           chunks=chunks)
 
+        # use of reranker 
+        reranker_retriever = self.reranker(retriever=retriever)
+
         logger.info("Checking if the weaviate client is live")
         # check if the client
         if weaviate_client.is_live():
@@ -223,6 +227,6 @@ class VectorDB:
         # return the weaviate vector db and the retriever
         logger.info(f"Successfully retrieved:\nVector db: {weaviate_vectordb}\n retriever:{retriever}")
         
-        weaviate_client.close() # close the connection for now 
+        #weaviate_client.close() # close the connection for now 
 
-        return weaviate_vectordb, retriever
+        return weaviate_vectordb, reranker_retriever
