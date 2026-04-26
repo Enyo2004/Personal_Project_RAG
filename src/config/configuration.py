@@ -58,7 +58,6 @@ class ConfigurationManager:
     
 
     """Vector DB Config"""
-
     def get_vector_db_config(self) -> VectorDBConfig:
         
         # config keys
@@ -81,8 +80,6 @@ class ConfigurationManager:
             path_name=config.path_name,
             
             embedding_name=config.embedding_name,
-            default_cluster_url=config.default_cluster_url,
-            llm=config.llm,
             artifact_path=config.artifact_path, 
 
             # splitter 

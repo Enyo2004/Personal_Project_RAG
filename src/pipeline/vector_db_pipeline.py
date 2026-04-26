@@ -6,12 +6,14 @@ from src.config.configuration import ConfigurationManager
 # get the vector db component (functionality)
 from src.components.vector_db import VectorDB 
 
+from langchain_weaviate import WeaviateVectorStore
+from langchain_classic.retrievers import EnsembleRetriever
 
 class VectorDBPipeline: 
     def __init__(self, ): 
         pass 
 
-    def initiate_vector_db(self, user_message:str) -> str:
+    def initiate_vector_db(self,) -> tuple[WeaviateVectorStore, EnsembleRetriever]:
         try:
             ## create the pipeline 
             config = ConfigurationManager()
@@ -20,9 +22,10 @@ class VectorDBPipeline:
 
             vector_db = VectorDB(vector_db_config)
 
-            response = vector_db.start_vector_db(query=user_message)
+            weaviate_client, retriever = vector_db.start_vector_db()
 
-            return response
+            return weaviate_client, retriever
         
         except Exception as e:
             raise e
+        

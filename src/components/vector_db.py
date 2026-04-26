@@ -46,19 +46,10 @@ from src.utils.logger_artifact import logger
 class VectorDB: 
     def __init__(self,
                  config=VectorDBConfig):
-
-        self.config = config 
-
-        # load the .env file 
-        load_dotenv(override=True)
         
-        self.client_llm = ChatOpenAI(
-            model=self.config.llm,
-            base_url= os.getenv("CEREBRAS_BASE_URL"),
-            api_key=os.getenv("CEREBRAS_API_KEY"),
-            max_retries=3,
-        )  
-
+        load_dotenv(override=True)
+        self.config = config 
+        
         # create the path object 
         self.response_file_txt = Path(self.config.artifact_path)
         
@@ -171,40 +162,13 @@ class VectorDB:
         return reranked_retriever
 
 
-    def llm_retrieval(self, retriever:ContextualCompressionRetriever, query_input:str) -> str: 
-        ## use of llm to retrieve the information 
-
-        logger.info(f"Retrieving info from query: {query_input}")
-
-        # retrieve the info (documents)
-        retrieved_info = retriever.invoke(input=query_input)
-
-        # get the string information from the documents 
-        context = ""
-        for info in retrieved_info:
-            context+=info.page_content
-
-        logger.info("LLM creating response")
-        response = self.client_llm.invoke(
-                    input=[
-                        SystemMessage(content=f"You are a helpful spiritual assistant FLUENT in ENGLISH and SPANISH, that answers the questions IN SPANISH according to these context: {context}"),
-                        AIMessage(content="Aqui te proporciono la informacion que ocupas:"),
-                        HumanMessage(content=query_input)
-                    ]
-                )
-        
-        logger.info("LLM response ready")
-
-        return response.content
-
-
     
-    def start_vector_db(self, query:str) -> WeaviateVectorStore:
+    def start_vector_db(self, ) -> WeaviateVectorStore:
         ## instructions to start the vector DB ##
 
         # instantiate the client 
         weaviate_client= weaviate.connect_to_weaviate_cloud(
-            cluster_url=self.config.default_cluster_url, # rest endpoint (temporal cluster)
+            cluster_url=os.getenv("CLUSTER_URL"), # rest endpoint (temporal cluster) get it from .env file
             auth_credentials=weaviate.classes.init.Auth.api_key(api_key=os.getenv("WEAVIATE_TEMPORAL_API_KEY")) # api key (create one first and add to .env file)
         )
         # check how many collections are there in the client 
@@ -241,28 +205,24 @@ class VectorDB:
         retriever = self.hybrid_retriever(vectorStore=weaviate_vectordb,
                                           chunks=chunks)
 
-        # use of reranker 
-        reranker_retriever = self.reranker(retriever=retriever)
-
-
-
-        ## retrieve with the help of an llm 
-        llm_response = self.llm_retrieval(retriever=reranker_retriever, query_input=query)
-
-        ## save the answer to the artifacts folder 
-        logger.info(f"Saving llm response to {self.response_file_txt.name}")
-
+        logger.info("Checking if the weaviate client is live")
+        # check if the client
+        if weaviate_client.is_live():
+            status = "True"
+            logger.info(f"It is live: Status={status}")
+        else: 
+            status = "False"
+            logger.info(f"It is not live: Status={status}")
+        
+        logger.info(f"Logging status: {status} to file {self.response_file_txt}")
+            ## save the status to the artifacts folder 
         with open(file=self.response_file_txt, mode='w') as saved_response: 
-            saved_response.write(f"Pregunta hecha: {query}\n\n")
-            saved_response.write(llm_response)
+            saved_response.write(status)
+        logger.info(f"Successfully logged the status: {status}")
 
-        logger.info(f"Llm response saved successfully to {self.response_file_txt}")
+        # return the weaviate vector db and the retriever
+        logger.info(f"Successfully retrieved:\nVector db: {weaviate_vectordb}\n retriever:{retriever}")
+        
+        weaviate_client.close() # close the connection for now 
 
-        # close the connection to avoid leaks 
-        logger.info("Closing weaviate client")
-        weaviate_client.close()
-        logger.info("Weaviate connection closed")
-
-        # return the llm response 
-        return llm_response
-
+        return weaviate_vectordb, retriever

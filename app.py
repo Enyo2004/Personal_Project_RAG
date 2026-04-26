@@ -23,9 +23,9 @@ try:
     '''Vector DB'''
     vector_db_pipeline = VectorDBPipeline()
 
-    response = vector_db_pipeline.initiate_vector_db("Explicar el Protocolo de oscilacion de campo")
+    weaviate_client, retriever = vector_db_pipeline.initiate_vector_db()
 
-    print(response)
+    print(weaviate_client, retriever)
 
 except Exception as e: 
     raise e 

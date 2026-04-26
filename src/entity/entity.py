@@ -30,8 +30,6 @@ class VectorDBConfig:
     path_name: Path 
     
     embedding_name: str 
-    default_cluster_url: str
-    llm: str
     artifact_path: Path 
 
     ## params ## 
@@ -49,5 +47,4 @@ class VectorDBConfig:
     weights: List[float]
 
     
-
 
