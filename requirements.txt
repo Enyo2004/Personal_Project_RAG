@@ -12,3 +12,4 @@ sentence-transformers
 unstructured
 pymongo 
 IPython 
+gradio

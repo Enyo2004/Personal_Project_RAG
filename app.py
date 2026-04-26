@@ -12,31 +12,36 @@ from src.pipeline.vector_db_pipeline import VectorDBPipeline
 """Response LLM"""
 from src.pipeline.response_llm_pipeline import ResponseLLMPipeline
 
-try: 
-    '''Data Ingestion'''
-    data_ingestion_pipeline = DataIngestionPipeline()
+class CompletePipeline:
+    def __init__(self, ):
+        pass 
 
-    data_ingestion_pipeline.initiate_data_ingestion()
-    
-    '''Data transformation'''
-    data_transformation_pipeline = DataTransformationPipeline()
+    def workflow(self,):
+        try:
+            '''Data Ingestion'''
+            data_ingestion_pipeline = DataIngestionPipeline()
 
-    data_transformation_pipeline.initiate_data_transformation()
-    
-    '''Vector DB'''
-    vector_db_pipeline = VectorDBPipeline()
+            data_ingestion_pipeline.initiate_data_ingestion()
+            
+            '''Data transformation'''
+            data_transformation_pipeline = DataTransformationPipeline()
 
-    weaviate_client, retriever = vector_db_pipeline.initiate_vector_db()
+            data_transformation_pipeline.initiate_data_transformation()
+            
+            '''Vector DB'''
+            vector_db_pipeline = VectorDBPipeline()
+
+            weaviate_client, retriever = vector_db_pipeline.initiate_vector_db()
 
 
-    '''Response LLM'''
-    response_llm_pipeline = ResponseLLMPipeline(
-        vector_db=weaviate_client,
-        retriever=retriever
-    )
+            '''Response LLM'''
+            response_llm_pipeline = ResponseLLMPipeline(
+                vector_db=weaviate_client,
+                retriever=retriever,
+            )
+            
+            # return the llm response object
+            return response_llm_pipeline
 
-    llm_response = response_llm_pipeline.initiate_llm_response(query="Cubo de Metatron")
-    
-    print(llm_response)
-except Exception as e: 
-    raise e 
+        except Exception as e: 
+            raise e 

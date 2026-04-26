@@ -227,6 +227,4 @@ class VectorDB:
         # return the weaviate vector db and the retriever
         logger.info(f"Successfully retrieved:\nVector db: {weaviate_vectordb}\n retriever:{retriever}")
         
-        #weaviate_client.close() # close the connection for now 
-
         return weaviate_vectordb, reranker_retriever
